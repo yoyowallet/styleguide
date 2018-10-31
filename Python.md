@@ -1,6 +1,6 @@
 # Python
 
-## py.test
+## Testing
 
 - When using `@pytest.mark.parametrize`, use deterministic arguments.
 
@@ -14,4 +14,30 @@ def test_positive_number(number):
 @pytest.mark.parametrize('number', [1, 2, 3])
 def test_positive_number(number):
     assert number > 0
+```
+
+- Avoid running expensive operations in the global scope as it will increase the test collection time.
+
+```python
+# No
+value = expensive_operation()
+
+def test_value():
+    assert value
+
+# Yes
+def calculate_value():
+    return expensive_operation()
+
+def test_value():
+    value = calculate_value()
+    assert value
+
+# Yes, using py.test fixture
+@pytest.fixture
+def value():
+    return expensive_operation()
+
+def test_value(value):
+    assert value
 ```

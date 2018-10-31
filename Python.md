@@ -1,5 +1,13 @@
 # Python
 
+## Syntax
+
+- Use double underscores `__` for unused variables. Single underscore `_` is reserved for internationalisation functions.
+
+```python
+user, __ = User.objects.get_or_create(email='hello@yoyowallet.com')
+```
+
 ## Testing
 
 - When using `@pytest.mark.parametrize`, use deterministic arguments.
